@@ -14,25 +14,25 @@ async fetchMovieById (movieId)  {
   const response = await axios.get(
     `https://api.themoviedb.org/3/movie/${movieId}?api_key=${KEY}&language=en-US`
   );
-  return await response.results;
+  return await response.data.results ;
 },
 async fetchMovieBySearch (searchTerm)  {
   const response = await axios.get(
     `https://api.themoviedb.org/3/search/movie?api_key=${KEY}&language=en-US&query=${searchTerm}&page=1&include_adult=false`
   );
-  return await response.results;
+  return await response.data.results ;
 },
 async fetchMovieCast (movieId)  {
   const response = await axios.get(
     `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${KEY}&language=en-US`
   );
-  return await response.results;
+  return await response.data.results ;
 },
 async fetchMovieReviews (movieId)  {
   const response = await axios.get(
     `https://api.themoviedb.org/3/movie/${movieId}/reviews?api_key=${KEY}&language=en-US&page=1`
   );
-  return await response.results;
+  return await response.data.results ;
 },
 }
 // export const getMovies = fetchMovies();

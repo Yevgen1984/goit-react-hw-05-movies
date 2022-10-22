@@ -1,44 +1,88 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import { MoviesAPI } from 'servises/MoviesApi';
+import { SearchBox } from 'components/SearchMovie/SearchMovie';
+import { Loader } from 'components/Loader/Loader';
 
 export const Movies = () => {
   const location = useLocation();
   const [movies, setMovies] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
-  const filterParam = searchParams.get('filter') ?? '';
+  const [searchQuery, setSearchQuery] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const filterParam = searchParams.get('searchQuery') ?? '';
 
-  // useEffect(() => {
-  //   const moviesList = MoviesAPI.fetchMovieBySearch(searchParams)
-  //   setMovies(moviesList)
-  // }, [searchParams]);
+  useEffect(() => {
+    console.log(filterParam);
+    const getMovies = async filterParam => {
+      setIsLoading(true);
+      try {
+        const moviesResponse = await MoviesAPI.fetchMovieBySearch(filterParam);
+        console.log(moviesResponse);
+        if (!moviesResponse.length) {
+        throw new Error('Oops!');
+        }
+        setMovies(moviesResponse);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-  const changeFilter = value => {
-    setSearchParams(value !== '' ? { filter: value } : {});
+    if (filterParam) {
+      getMovies(filterParam);
+    }
+  }, [filterParam]);
+
+  const onFormSubmit = event => {
+    event.preventDefault();
+    setSearchParams({ searchQuery });
+    setMovies([]);
+    setError(null);
   };
 
-  const visibleMovies =
-    (() => {
-      return movies.filter(movie =>
-        movie.title.toLowerCase().includes(filterParam.toLowerCase())
-      )
-    }
-    );
+  // const changeFilter = value => {
+  //   setSearchParams(value !== '' ? { filter: value } : {});
+  // };
+
+  const onInput = e => {
+    setSearchQuery(e.target.value);
+  };
+
+  // const visibleMovies = () => {
+  //   return movies.filter(movie =>
+  //     movie.title.toLowerCase().includes(filterParam.toLowerCase())
+  //   );
+  // };
 
   return (
-   <>
-      {/* <SearchBox value={filterParam} onChange={changeFilter} /> */}
-      {visibleMovies.length > 0 && (
+    <>
+      <SearchBox
+        value={searchQuery}
+        // onChange={changeFilter}
+        onInput={onInput}
+        onFormSubmit={onFormSubmit}
+      />
+      {isLoading && <Loader />}
+      {error && (
+        <p>
+          Sorry! We didn't find anything on your query! Change search params and
+          try again!
+        </p>
+      )}
+      {movies.length > 0 && (
         <ul>
-          {visibleMovies.map(movie => (
+          {movies.map(movie => (
             <li key={movie.id}>
               <Link to={`${movie.id}`} state={{ from: location }}>
-                {movie.title}
+                {movie.original_name ?? movie.title ?? movie.name}
               </Link>
             </li>
           ))}
         </ul>
       )}
-   </>
+    </>
   );
 };

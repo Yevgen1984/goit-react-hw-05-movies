@@ -1,11 +1,16 @@
-export const SearchBox = ({ value, onChange }) => {
+import { Form, Button, Input } from './SearchMovie.styled';
+
+
+export const SearchBox = ({ value, onInput, onFormSubmit }) => {
+ 
+
   return (
     <div>
-      <input
-        type="text"
-        value={value}
-        onChange={e => onChange(e.target.value)}
-      />
+      <Form onSubmit={onFormSubmit}>
+        <Input type="text" name="search" value={value} onInput={onInput} />
+        <Button>Search</Button>
+      </Form>
+
     </div>
   );
 };
