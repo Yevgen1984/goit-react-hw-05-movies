@@ -1,22 +1,22 @@
-import { lazy } from 'react';
+import { lazy, Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { Layout } from './Layout/Layout';
 // import { lazy, Suspense } from 'react';
-import { Home } from '../Pages/HomePage';
-// import { Movies } from '../Pages/Movies';
-// import MovieDetails from '../Pages/MovieDetails';
+import Home from '../pages/HomePage';
+// import Movies  from '../Pages/Movies';
+// import MoviesDetails from '../Pages/MoviesDetails';
 // import CastPage from '../Pages/CastPage';
 // import ReviewsPage from '../Pages/ReviewsPage';
 
-const Movies = lazy(() => import('../Pages/Movies'));
-const MoviesDetails = lazy(() => import('../Pages/MoviesDetails'));
+const Movies = lazy(() => import('../pages/Movies'));
+const MoviesDetails = lazy(() => import('../pages/MoviesDetails'));
 
-const CastPage = lazy(() => import('../Pages/CastPage'));
-const ReviewsPage = lazy(() => import('../Pages/ReviewsPage'));
+const CastPage = lazy(() => import('../pages/CastPage'));
+const ReviewsPage = lazy(() => import('../pages/ReviewsPage'));
 
 export const App = () => {
   return (
-    <>
+    <><Suspense>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index end element={<Home />} />
@@ -27,6 +27,7 @@ export const App = () => {
           </Route>
         </Route>
       </Routes>
+      </Suspense>
     </>
   );
 };

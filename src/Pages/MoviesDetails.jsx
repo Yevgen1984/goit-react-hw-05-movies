@@ -1,7 +1,7 @@
 import { Outlet, useParams, useLocation, useNavigate } from 'react-router-dom';
-import { useState, useEffect, Suspense } from 'react';
+import { useState, useEffect, Suspense} from 'react';
 // import { useFetchMovieInfo } from 'hooks/useFetchMovieInfo';
-import { MoviesAPI } from 'servises/MoviesApi';
+import { MoviesAPI } from '../servises/MoviesApi';
 // import { Movie } from 'components/Movie/Movie';
 import { Loader } from '../components/Loader/Loader';
 import { LinkItem } from '../components/Navigation/Navigation.styled';

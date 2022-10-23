@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
-import { Loader } from 'components/Loader/Loader';
-import { MoviesAPI } from 'servises/MoviesApi';
 
-export const Home = () => {
+import { Loader } from '../components/Loader/Loader';
+import { MoviesAPI } from '../servises/MoviesApi';
+import {MoviesList, MovieTitle} from './HomePage.styled';
+
+const Home = () => {
   const [trendMovies, setTrendMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -39,16 +41,17 @@ export const Home = () => {
         </p>
       )}
       {!!trendMovies.length && (
-        <ul>
+        <MoviesList>
           {trendMovies.map(movie => (
             <li key={movie.id}>
-              <Link to={`/movies/${movie.id}`} state={{ from: location }}>
+              <MovieTitle to={`/movies/${movie.id}`} state={{ from: location }}>
                 {movie.original_name ?? movie.title ?? movie.name}
-              </Link>
+              </MovieTitle>
             </li>
           ))}
-        </ul>
+        </MoviesList>
       )}
     </>
   );
 };
+export default Home;
