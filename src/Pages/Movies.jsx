@@ -4,7 +4,7 @@ import { MoviesAPI } from 'servises/MoviesApi';
 import { SearchBox } from 'components/SearchMovie/SearchMovie';
 import { Loader } from 'components/Loader/Loader';
 
-export const Movies = () => {
+const Movies = () => {
   const location = useLocation();
   const [movies, setMovies] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -14,14 +14,13 @@ export const Movies = () => {
   const filterParam = searchParams.get('searchQuery') ?? '';
 
   useEffect(() => {
-    console.log(filterParam);
     const getMovies = async filterParam => {
       setIsLoading(true);
       try {
         const moviesResponse = await MoviesAPI.fetchMovieBySearch(filterParam);
-        console.log(moviesResponse);
+
         if (!moviesResponse.length) {
-        throw new Error('Oops!');
+          throw new Error('Oops!');
         }
         setMovies(moviesResponse);
       } catch (error) {
@@ -86,3 +85,5 @@ export const Movies = () => {
     </>
   );
 };
+
+export default Movies;

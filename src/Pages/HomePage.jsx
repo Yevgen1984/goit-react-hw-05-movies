@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, useLocation, useSearchParams } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import { Loader } from 'components/Loader/Loader';
 import { MoviesAPI } from 'servises/MoviesApi';
@@ -32,7 +32,7 @@ export const Home = () => {
 
   return (
     <>
-     {isLoading && <Loader />}
+      {isLoading && <Loader />}
       {error && (
         <p>
           Sorry!We can't show you the most popular movies now, try again later.
