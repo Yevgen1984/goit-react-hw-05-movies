@@ -6,7 +6,7 @@ import { MoviesAPI } from 'servises/MoviesApi';
 import { Loader } from '../components/Loader/Loader';
 import { LinkItem } from '../components/Navigation/Navigation.styled';
 
-const MoviesDetailsPage = () => {
+const MoviesDetails = () => {
   // const { movieInfo, isLoading, error } = useFetchMovieInfo();
   const [movieInfo, setMovieInfo] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -17,7 +17,7 @@ const MoviesDetailsPage = () => {
   const navigation = useNavigate();
 
   useEffect(() => {
-     const getMovie = async movieId => {
+    const getMovie = async movieId => {
       setIsLoading(true);
       try {
         const movieDetails = await MoviesAPI.fetchMovieById(movieId);
@@ -37,7 +37,7 @@ const MoviesDetailsPage = () => {
     navigation(location?.state?.from ?? '/');
   };
   console.log(movieInfo);
- 
+
   return (
     <>
       {isLoading && <Loader />}
@@ -90,4 +90,4 @@ const MoviesDetailsPage = () => {
   );
 };
 
-export default MoviesDetailsPage;
+export default MoviesDetails;
