@@ -21,7 +21,7 @@ export const App = () => {
       {/* <Suspense> */}
         <Routes>
           <Route path="/" element={<Layout />}>
-            <Route index end element={<HomePage />} />
+            <Route index element={<HomePage />} />
             <Route path="movies" element={<Movies />} />
             <Route path="movies/:movieId" element={<MoviesDetails />}>
               <Route path="cast" element={<CastPage />} />
