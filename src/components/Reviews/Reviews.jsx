@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 
+
 export const ReviewList = ({ movieInfo: { results } }) => {
   console.log(results);
   return (

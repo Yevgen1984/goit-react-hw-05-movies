@@ -3,7 +3,8 @@ import styled from 'styled-components';
 export const Form = styled.form`
   display: flex;
   gap: 10px;
-  margin-bottom: 20px;
+  margin-left: 40px;
+  margin-top: 30px;
 `;
 export const Button = styled.button`
   color: ${p => p.theme.colors.secondary};

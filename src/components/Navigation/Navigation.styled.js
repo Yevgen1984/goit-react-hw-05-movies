@@ -28,3 +28,13 @@ export const LinkItem = styled(Link)`
     color: ${p => p.theme.colors.white};
   }
 `;
+
+export const Nav = styled.ul`
+display: flex;
+list-style: none;
+gap: ${p => p.theme.space[3]}px;
+/* align-items: center; */
+margin-top: auto;
+margin-bottom: auto;
+
+` 
